@@ -9,124 +9,179 @@ using RoboCtrl.Model;
 
 namespace RoboCtrl.JavaSolver
 {
+    class SolverResult
+    {
+        public IEnumerable<Move> moves { get; set; }
+        public string solverString { get; set; }
+
+    }
+
     class JavaSolver
     {
-        public IEnumerable<Move> Solve(string map, Robot robot)
+        public SolverResult Solve(string map, Robot robot)
         {
             var res = RunSolver(map);
 
             var lowercase = res.ToLower();
             List<Move> movements = new List<Move>();
+
+            var heading = robot.Heading;
+
             foreach (char character in lowercase)
             {
                 switch (character)
                 {
                     case 'u':
-                        if (robot.Heading == 0 || robot.Heading == 360)
+                        if (heading == 0 || heading == 360)
                         {
                             movements.Add(Move.Forward);
                         }
 
-                        if (robot.Heading == 90)
+                        if (heading == 90)
                         {
                             movements.Add(Move.Left);
                             movements.Add(Move.Forward);
+                            heading = Left(heading);
                         }
 
-                        if (robot.Heading == 180)
+                        if (heading == 180)
                         {
                             movements.Add(Move.Left);
                             movements.Add(Move.Left);
                             movements.Add(Move.Forward);
+                            heading = Left(heading);
+                            heading = Left(heading);
                         }
 
-                        if (robot.Heading == 270)
+                        if (heading == 270)
                         {
                             movements.Add(Move.Right);
                             movements.Add(Move.Forward);
+                            heading = Right(heading);
                         }
                         break;
                     case 'd':
-                        if (robot.Heading == 0 || robot.Heading == 360)
+                        if (heading == 0 || heading == 360)
                         {
                             movements.Add(Move.Left);
                             movements.Add(Move.Left);
                             movements.Add(Move.Forward);
+                            heading = Left(heading);
+                            heading = Left(heading);
                         }
 
-                        if (robot.Heading == 90)
+                        if (heading == 90)
                         {
                             movements.Add(Move.Right);
                             movements.Add(Move.Forward);
+                            heading = Right(heading);
                         }
 
-                        if (robot.Heading == 180)
+                        if (heading == 180)
                         {
                             movements.Add(Move.Forward);
                         }
 
-                        if (robot.Heading == 270)
+                        if (heading == 270)
                         {
                             movements.Add(Move.Left);
                             movements.Add(Move.Forward);
+                            heading = Left(heading);
                         }
                         break;
                     case 'l':
-                        if (robot.Heading == 0 || robot.Heading == 360)
+                        if (heading == 0 || heading == 360)
                         {
                             movements.Add(Move.Left);
                             movements.Add(Move.Forward);
+                            heading = Left(heading);
                         }
 
-                        if (robot.Heading == 90)
+                        if (heading == 90)
                         {
                             movements.Add(Move.Left);
                             movements.Add(Move.Left);
                             movements.Add(Move.Forward);
+                            heading = Left(heading);
+                            heading = Left(heading);
                         }
 
-                        if (robot.Heading == 180)
+                        if (heading == 180)
                         {
                             movements.Add(Move.Right);
                             movements.Add(Move.Forward);
+                            heading = Right(heading);
                         }
 
-                        if (robot.Heading == 270)
+                        if (heading == 270)
                         {
                             movements.Add(Move.Forward);
                         }
                         break;
                     case 'r':
-                        if (robot.Heading == 0 || robot.Heading == 360)
+                        if (heading == 0 || heading == 360)
                         {
                             movements.Add(Move.Right);
                             movements.Add(Move.Forward);
+                            heading = Right(heading);
                         }
 
-                        if (robot.Heading == 90)
+                        if (heading == 90)
                         {
                             movements.Add(Move.Forward);
                         }
 
-                        if (robot.Heading == 180)
+                        if (heading == 180)
                         {
                             movements.Add(Move.Left);
+                            movements.Add(Move.Left);
                             movements.Add(Move.Forward);
+                            heading = Left(heading);
+                            heading = Left(heading);
                         }
 
-                        if (robot.Heading == 270)
+                        if (heading == 270)
                         {
                             movements.Add(Move.Right);
                             movements.Add(Move.Right);
                             movements.Add(Move.Forward);
+                            heading = Right(heading);
+                            heading = Right(heading);
                         }
                         break;
                 }
             }
 
-            return movements;
+            return new SolverResult()
+            {
+                moves = movements,
+                solverString = res,
+            };
         }
 
+        private int Left(int heading)
+        {
+            switch (heading)
+            {
+                case 0: return 270;
+                case 90: return 0;
+                case 180: return 90;
+                case 270: return 180;
+                default: throw new Exception();
+            }
+        }
+
+        private int Right(int heading)
+        {
+            switch (heading)
+            {
+                case 0: return 90;
+                case 90 : return 180;
+                case 180: return 270;
+                case 270: return 0;
+                default: throw new Exception();
+            }
+        }
 
         private string RunSolver(string map)
         {

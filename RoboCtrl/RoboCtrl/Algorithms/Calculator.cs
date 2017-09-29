@@ -38,11 +38,11 @@ namespace RoboCtrl.Algorithms
                             {
                                 if (warehouse.matrix[i, j] is Crate)
                                 {
-                                    newW.matrix[i, j] = new Obstacle() { Location = new Location() { X = i, Y = j } };
+                                    newW.matrix[i, j] = new Obstacle();
                                 }
                                 else
                                 {
-                                    newW.matrix[i, j] = new Place() { Location = new Location() { X = i, Y = j } };
+                                    newW.matrix[i, j] = null;
                                 }
                             }
                         }
@@ -57,9 +57,10 @@ namespace RoboCtrl.Algorithms
                 var solver = new JavaSolver.JavaSolver();
 
                 var r = solver.Solve(newW.GenerateString(),warehouse.Robot);
-                res.AddRange(r);
+                Console.WriteLine(r.solverString);
+                res.AddRange(r.moves);
 
-                warehouse.matrix[a, b] = new Place() { Location = new Location() { X = a, Y = b } };
+                warehouse.matrix[a, b] = null; 
             }
 
 

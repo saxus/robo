@@ -23,7 +23,7 @@ namespace RoboCtrl
 
             SolutionExecuter executer = new SolutionExecuter(connectionString);
 
-            executer.Reset().Wait();
+            executer.ResetProblem().Wait();
 
             var initialWarehouse = executer.GetInitialState().Result;
 

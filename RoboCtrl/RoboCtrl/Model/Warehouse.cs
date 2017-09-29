@@ -103,7 +103,7 @@ namespace RoboCtrl.Model
 
             res += "\n";
 
-            for (int x = 0; x < w; x++)
+            for (int i = 0; i < h; i++)                
             {
 
                 //if (json.Exit.Location.X == x && json.Exit.Location.Y == 0)
@@ -114,11 +114,10 @@ namespace RoboCtrl.Model
                 //{
                     res += "#";
                 //}
-
-                for (int y = 0; y < h; y++)
+                for (int j = 0; j < w; j++)
                 {
 
-                    var p = matrix[x, y];
+                    var p = matrix[i, j];
                     if (p == null)
                     {
                         res += " ";
