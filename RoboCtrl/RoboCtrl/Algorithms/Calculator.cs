@@ -14,11 +14,33 @@ namespace RoboCtrl.Algorithms
         public List<Move> Solve(WarehouseState warehouse)
         {
             var res = new List<Move>();
-
+            bool firstRun = true;
 
             while (true)
             {
                 var newW = new WarehouseState(warehouse.json);
+
+                if (!firstRun)
+                {
+                    var turn = (res.Count(x => x == Move.Left) - res.Count(x => x == Move.Right)) % 4;
+
+                    if (turn ==0)
+                    {
+                        warehouse.Robot.Heading = 90;
+                    }
+                    else if (turn == 1)
+                    {
+                        warehouse.Robot.Heading = 0;
+                    }
+                    else if (turn == 2)
+                    {
+                        warehouse.Robot.Heading = 270;
+                    }
+                    else
+                    {
+                        warehouse.Robot.Heading = 180;
+                    }
+                }
                 bool first = true;
                 int a=0;
                 int b=0;
@@ -61,7 +83,8 @@ namespace RoboCtrl.Algorithms
                 res.AddRange(r.moves);
                 res.Add(Move.Forward);
 
-                warehouse.matrix[a, b] = null; 
+                warehouse.matrix[a, b] = null;
+                firstRun = false;
             }
 
 
