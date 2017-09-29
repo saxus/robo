@@ -156,7 +156,7 @@ namespace SokobanSolver
 
         public static void Main(string[] a)
         {
-            string level = File.ReadAllText("l2.txt");
+            string level = File.ReadAllText(@"l2.txt");
 
             System.Console.WriteLine("Level:\n");
 

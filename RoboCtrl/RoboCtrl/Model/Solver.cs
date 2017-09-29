@@ -6,11 +6,4 @@ using System.Threading.Tasks;
 
 namespace RoboCtrl.Model
 {
-    class Solver
-    {
-        public IEnumerable<Moves> Solve(string map)
-        {
-            return new Moves[0];
-        }
-    }
 }
