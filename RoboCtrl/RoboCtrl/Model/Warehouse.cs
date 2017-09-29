@@ -33,7 +33,6 @@ namespace RoboCtrl.Model
             }
 
             // XXX
-            matrix[json.Robot.Location.X, json.Robot.Location.Y] = json.Robot;
             matrix[json.Exit.Location.X, json.Exit.Location.Y] = json.Exit;
         }
 
@@ -65,6 +64,9 @@ namespace RoboCtrl.Model
                 Console.WriteLine("|");
             }
             Console.WriteLine("+" + new string('-', w) + "+");
+
+            Console.SetCursorPosition(1 + json.Robot.Location.Y, 1 + json.Robot.Location.X);
+
 
         }
     }
