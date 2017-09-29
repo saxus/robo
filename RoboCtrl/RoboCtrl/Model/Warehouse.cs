@@ -21,23 +21,23 @@ namespace RoboCtrl.Model
 
             foreach (var it in json.Obstacles)
             {
-                if (it.Location.X > w - 1 || it.Location.Y > h - 1)
+                if (it.Location.Y > w - 1 || it.Location.X > h - 1)
                 {
 
                 }
                 else
                 {
-                    matrix[it.Location.X, it.Location.Y] = it;
+                    matrix[it.Location.Y, it.Location.X] = it;
                 }
             }
 
             foreach (var it in json.Crates)
             {
-                matrix[it.Location.X, it.Location.Y] = it;
+                matrix[it.Location.Y, it.Location.X] = it;
             }
 
             // XXX
-            matrix[json.Exit.Location.X, json.Exit.Location.Y] = json.Exit;
+            matrix[json.Exit.Location.Y, json.Exit.Location.X] = json.Exit;
 
             Robot = new Robot();
             Robot.StepCompleted = json.Robot.StepCompleted;
@@ -55,14 +55,15 @@ namespace RoboCtrl.Model
             Console.WriteLine("#" + new string('#', w) + "#");
 
 
-            for (int x = 0; x < w; x++)
+                for (int y = 0; y < h; y++)
+                
             {
 
                 Console.Write("#");
 
-                for (int y = 0; y < h; y++)
+                for (int x = 0; x < w; x++)
                 {
-                    var v = matrix[x, y]?.ToString();
+                    var v = matrix[y, x]?.ToString();
                     if (v == null)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -86,48 +87,59 @@ namespace RoboCtrl.Model
 
         public string GenerateString()
         {
-            var res = "";
+            var res = (h+2) + "\n" + (w + 2)  + "\n";
 
-            for (int x = 0; x < w+1; x++)
+            for (int x = 0; x < w+2; x++)
             {
-                if (json.Exit.Location.X == 0 && json.Exit.Location.Y == x)
-                {
-                    res += ".";
-                }
-                else
-                {
+                //if (json.Exit.Location.X == 0 && json.Exit.Location.Y == x)
+                //{
+                //    res += ".";
+                //}
+                //else
+                //{
                     res += "#";
-                }
+                //}
             }
 
-            for (int x = 0; x < w+1; x++)
+            res += "\n";
+
+            for (int x = 0; x < w; x++)
             {
 
-                if (json.Exit.Location.X == x && json.Exit.Location.Y == 0)
-                {
-                    res += ".";
-                }
-                else
-                {
+                //if (json.Exit.Location.X == x && json.Exit.Location.Y == 0)
+                //{
+                //    res += ".";
+                //}
+                //else
+                //{
                     res += "#";
-                }
+                //}
 
-                for (int y = 0; y < h+1; y++)
+                for (int y = 0; y < h; y++)
                 {
-                    var v = matrix[x, y]?.ToString();
-                    if (v == null)
+
+                    var p = matrix[x, y];
+                    if (p == null)
                     {
                         res += " ";
                     }
                     else
                     {
-                        res += v;
+                        if (p is Exit && p.Location.X == json.Robot.Location.X &&
+                                         p.Location.Y == json.Robot.Location.Y)
+                        {
+                            res += "+";
+                        }
+                        else
+                        {
+                            res += p.ToString();
+                        }
                     }
                 }
-                res += "#/n";
+                res += "#\n";
             }
 
-            for (int x = 0; x < w + 1; x++)
+            for (int x = 0; x < w + 2; x++)
             {
                 res += "#";                
             }

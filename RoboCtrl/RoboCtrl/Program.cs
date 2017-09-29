@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Mono.Options;
+using RoboCtrl.Algorithms;
 using RoboCtrl.Model;
 
 namespace RoboCtrl
@@ -18,81 +19,15 @@ namespace RoboCtrl
 
             options.Parse(args);
 
-            var f = @"52
-52
-####################################################
-#                                                  #
-#                                                  #
-#                                                  #
-#                                                  #
-#                                                  #
-#          #                   #                   #
-#          #                   #                   #
-#          #                   #                   #
-#          #                   #                   #
-#          #                   #                   #
-#          #                   #                   #
-#          #                   #                   #
-#          #                   #                   #
-#          #                   #                   #
-#          #                   #                   #
-#          #                   #                   #
-#                                                  #
-#                                                  #
-#                                                  #
-#                                                  #
-#                                                  #
-#                                                  #
-#                                                  #
-#                                                  #
-#                                                  #
-.                                                  #
-#                                                  #
-#                                                  #
-#                                                  #
-#                                                  #
-#                                                  #
-#                                                  #
-#                                                  #
-#                                                  #
-#                                                  #
-#                    #                   #         #
-#                    #                   #         #
-#                    #  $                #         #
-#                    #                   #         #
-#                    #                   #         #
-#                    #                   #         #
-#                    #                   #         #
-#                    #                   #         #
-#                    #                   #         #
-#                    #                   #         #
-#                    #                   #         #
-#                                                  #
-#                                                  #
-#                                         @        #
-#                                                  #
-####################################################";
+            connectionString = "http://warehouse.nexogen.io/wh/d26a8954-feb9-4e75-aebd-a1caf20a807c";
 
-            var s = new JavaSolver.JavaSolver();
-            var res = s.Solve(f, new Robot());
+            SolutionExecuter executer = new SolutionExecuter(connectionString);
+            var initialWarehouse = executer.GetInitialState().Result;
 
-            foreach (var r in res)
-                Console.WriteLine(r);
-
-
-            //var str = File.ReadAllText("wh.json");
-            //var data = JsonConvert.DeserializeObject<WarehouseJson>(str);
-
-            //warehouse = new Warehouse(data);
-
-            //warehouse.Dump();
-            // TODO: live beolvasás
-            // Solution betöltés:
-            
-
-// SolutionExecuter executer = new SolutionExecuter(connectionString);
-//             List<Move> moves = new List<Move>{Move.Right, Move.Forward, Move.Forward, Move.Forward, Move.Forward};
-//             executer.ProcessMovements(moves).Wait();
+            var calculator = new Calculator();
+            var solution = calculator.Solve(initialWarehouse);
+                        
+            executer.ProcessMovements(solution).Wait();                        
         }
     }
 }

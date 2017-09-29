@@ -50,9 +50,10 @@ namespace RoboCtrl
                     WarehouseJson json = JsonConvert.DeserializeObject<WarehouseJson>(resultContent);
 
                     WarehouseState wareHouse = new WarehouseState(json.WarehouseState);
+                    // onsole.SetCursorPosition(0, 0);
                     Console.Clear();
                     wareHouse.Dump();
-                    Thread.Sleep(1000);
+                    Thread.Sleep(100);
                 }
                 else
                 {
