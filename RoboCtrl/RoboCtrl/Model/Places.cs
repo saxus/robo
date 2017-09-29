@@ -26,7 +26,7 @@ namespace RoboCtrl.Model
     {
         public int Value { get; set; }
 
-        public override string ToString() => "C";
+        public override string ToString() => "$";
     }
 
     class Robot: Place
@@ -47,20 +47,19 @@ namespace RoboCtrl.Model
         {
             switch (Heading)
             {
-                case 0: return "^";
-                case 1: return ">";
-                case 2: return "v";
-                case 3: return "<";
+                case 0: return "@";
+                case 1: return "@";
+                case 2: return "@";
+                case 3: return "@";
                 default: throw new Exception("heading szar");
             }
         }
-
     }
 
     class Exit : Place
     {
         public Guid RobotId { get; set; }
-        public override string ToString() => "E";
+        public override string ToString() => ".";
 
     }
 }

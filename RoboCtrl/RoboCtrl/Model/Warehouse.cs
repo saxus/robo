@@ -24,7 +24,14 @@ namespace RoboCtrl.Model
 
             foreach (var it in json.Obstacles)
             {
-                matrix[it.Location.X, it.Location.Y] = it;
+                if (it.Location.X > w - 1 || it.Location.Y > h - 1)
+                {
+
+                }
+                else
+                {
+                    matrix[it.Location.X, it.Location.Y] = it;
+                }
             }
 
             foreach (var it in json.Crates)
@@ -39,13 +46,14 @@ namespace RoboCtrl.Model
 
         public void Dump()
         {
-            Console.WriteLine("+" + new string('-', w) + "+");
+            Console.SetCursorPosition(0, 0);
+            Console.WriteLine("#" + new string('#', w) + "#");
 
 
             for (int x = 0; x < w; x++)
             {
 
-                Console.Write("|");
+                Console.Write("#");
 
                 for (int y = 0; y < h; y++)
                 {
@@ -53,7 +61,7 @@ namespace RoboCtrl.Model
                     if (v == null)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Console.Write(".");
+                        Console.Write(" ");
                         Console.ResetColor();
                     }
                     else
@@ -61,9 +69,9 @@ namespace RoboCtrl.Model
                         Console.Write(v);
                     }
                 }
-                Console.WriteLine("|");
+                Console.WriteLine("#");
             }
-            Console.WriteLine("+" + new string('-', w) + "+");
+            Console.WriteLine("#" + new string('#', w) + "#");
 
             Console.SetCursorPosition(1 + json.Robot.Location.Y, 1 + json.Robot.Location.X);
 

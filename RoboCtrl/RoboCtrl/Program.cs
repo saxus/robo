@@ -15,10 +15,12 @@ namespace RoboCtrl
 
         static void Main(string[] args)
         {
-            var str = File.ReadAllText("wh.json");
+            var str = File.ReadAllText("wh2.json");
             var data = JsonConvert.DeserializeObject<WarehouseJson>(str);
 
             warehouse = new Warehouse(data);
+
+
 
             warehouse.Dump();
             // TODO: live beolvasás
