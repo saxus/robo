@@ -10,7 +10,7 @@ namespace RoboCtrl.Algorithms
     class RouadTo
     {
 
-        public Road RoadThere(int i, int j, int a, int b, WarehouseState warehouse)
+        public Road RoadThere(int i, int j, int a, int b, Warehouse warehouse)
         {
             if (warehouse.Robot.Heading == 0)
             {
