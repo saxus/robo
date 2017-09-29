@@ -25,16 +25,16 @@ namespace RoboCtrl.Model
 
             foreach (var it in json.Obstacles)
             {
-                matrix[it.Location.X, it.Location.Y] = it;
+                matrix[it.Location.Y, it.Location.X] = it;
             }
 
             foreach (var it in json.Crates)
             {
-                matrix[it.Location.X, it.Location.Y] = it;
+                matrix[it.Location.Y, it.Location.X] = it;
             }
 
             // XXX
-            matrix[json.Exit.Location.X, json.Exit.Location.Y] = json.Exit;
+            matrix[json.Exit.Location.Y, json.Exit.Location.X] = json.Exit;
 
             Robot = new Robot();
             Robot.StepCompleted = json.Robot.StepCompleted;
@@ -49,35 +49,56 @@ namespace RoboCtrl.Model
             Console.WriteLine("Robot step completed:" + Robot.StepCompleted);
             Console.WriteLine("Robot turn completed:" + Robot.TurnCompleted);
 
-            Console.WriteLine("+" + new string('-', w) + "+");
+            
+            Console.WriteLine(GenerateString());
+
+            Console.SetCursorPosition(1 + json.Robot.Location.X, 1 + json.Robot.Location.Y);
 
 
-            for (int x = 0; x < w; x++)
+        }
+
+
+        public string GenerateString()
+        {
+            var res = (h + 2) + "\n" + (w + 2) + "\n";
+
+            res += new string('#', w + 2) + "\n";
+
+            for (int i = 0; i < h; i++)
             {
+                res += "#";
 
-                Console.Write("|");
-
-                for (int y = 0; y < h; y++)
+                for (int j = 0; j < w; j++)
                 {
-                    var v = matrix[x, y]?.ToString();
-                    if (v == null)
+
+                    var p = matrix[i, j];
+                    if (p == null)
                     {
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Console.Write(".");
-                        Console.ResetColor();
+                        res += " ";
                     }
                     else
                     {
-                        Console.Write(v);
+                        if (p is Exit &&
+                            p.Location.X == json.Robot.Location.X &&
+                            p.Location.Y == json.Robot.Location.Y)
+                        {
+                            res += "+";
+                        }
+                        else
+                        {
+                            res += p.ToString();
+                        }
                     }
                 }
-                Console.WriteLine("|");
+                res += "#\n";
             }
-            Console.WriteLine("+" + new string('-', w) + "+");
 
-            Console.SetCursorPosition(1 + json.Robot.Location.Y, 1 + json.Robot.Location.X);
+            for (int x = 0; x < w + 2; x++)
+            {
+                res += "#";
+            }
 
-
+            return res;
         }
     }
 }

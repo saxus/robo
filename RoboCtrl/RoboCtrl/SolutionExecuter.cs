@@ -22,12 +22,12 @@ namespace RoboCtrl
             await client.PostAsync(client.BaseAddress + "/reset", null);
         }
 
-        public async Task<Warehouse> GetInitialState()
+        public async Task<WarehouseState> GetInitialState()
         {
             var result = await client.GetAsync(client.BaseAddress);
             var resultContent = await result.Content.ReadAsStringAsync();
             WarehouseStateJson json = JsonConvert.DeserializeObject<WarehouseStateJson>(resultContent);
-            Warehouse warehouse = new Warehouse(json);
+            WarehouseState warehouse = new WarehouseState(json);
             return warehouse;
         }
 

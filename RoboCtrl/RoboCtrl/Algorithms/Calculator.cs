@@ -11,14 +11,14 @@ namespace RoboCtrl.Algorithms
     class Calculator
     {
 
-        public List<Move> Solve(Warehouse warehouse)
+        public List<Move> Solve(WarehouseState warehouse)
         {
             var res = new List<Move>();
 
 
             while (true)
             {
-                var newW = new Warehouse(warehouse.json);
+                var newW = new WarehouseState(warehouse.json);
                 bool first = true;
                 int a=0;
                 int b=0;

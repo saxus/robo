@@ -23,14 +23,24 @@ namespace RoboCtrl
 
             SolutionExecuter executer = new SolutionExecuter(connectionString);
 
-            executer.ResetProblem().Wait();
+            // executer.ResetProblem().Wait();
 
             var initialWarehouse = executer.GetInitialState().Result;
 
-            var calculator = new Calculator();
-            var solution = calculator.Solve(initialWarehouse);
-                        
-            executer.ProcessMovements(solution).Wait();                        
+            var whs = new WarehouseState(initialWarehouse.json);
+            whs.matrix = initialWarehouse.matrix;
+            whs.Robot = initialWarehouse.Robot;
+            whs.h = initialWarehouse.h;
+            whs.w = initialWarehouse.w;
+
+            whs.Dump();
+
+            Console.ReadLine();
+
+            // var calculator = new Calculator();
+            // var solution = calculator.Solve(initialWarehouse);
+            //             
+            // executer.ProcessMovements(solution).Wait();                        
         }
     }
 }
