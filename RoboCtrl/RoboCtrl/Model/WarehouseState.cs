@@ -47,7 +47,7 @@ namespace RoboCtrl.Model
             if (it.Location.Y >= 0 &&
                 it.Location.X >= 0 &&
                 it.Location.Y < h &&
-                it.Location.Y < w)
+                it.Location.X < w)
             {
                 matrix[it.Location.Y, it.Location.X] = it;
             }

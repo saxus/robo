@@ -22,7 +22,7 @@ namespace RoboCtrl.JavaSolver
         {
             var res = RunSolver(map);
 
-            var lowercase = res.ToLower();
+            var lowercase = res?.ToLower()?? "";
             List<Move> movements = new List<Move>();
 
             var heading = robot.Heading;
@@ -197,6 +197,8 @@ namespace RoboCtrl.JavaSolver
                 RedirectStandardOutput = true,
                 UseShellExecute = false
             };
+
+            Process p = null;
 
             var java = Task.Run(() =>
             {
