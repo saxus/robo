@@ -25,12 +25,12 @@ namespace RoboCtrl.Model
 
             foreach (var it in json.Obstacles)
             {
-                matrix[it.Location.Y, it.Location.X] = it;
+                Add(it);
             }
 
             foreach (var it in json.Crates)
             {
-                matrix[it.Location.Y, it.Location.X] = it;
+                Add(it);
             }
 
             // XXX
@@ -42,6 +42,16 @@ namespace RoboCtrl.Model
             Robot.ValueCreated = json.Robot.ValueCreated;
         }
 
+        private void Add(Place it)
+        {
+            if (it.Location.Y >= 0 &&
+                it.Location.X >= 0 &&
+                it.Location.Y < h &&
+                it.Location.Y < w)
+            {
+                matrix[it.Location.Y, it.Location.X] = it;
+            }
+        }
 
         public void Dump()
         {
@@ -52,7 +62,7 @@ namespace RoboCtrl.Model
             
             Console.WriteLine(GenerateString());
 
-            Console.SetCursorPosition(1 + json.Robot.Location.X, 1 + json.Robot.Location.Y);
+            Console.SetCursorPosition(1 + json.Robot.Location.X, 1 + json.Robot.Location.Y + 5);
 
 
         }

@@ -59,6 +59,7 @@ namespace RoboCtrl.Algorithms
                 var r = solver.Solve(newW.GenerateString(),warehouse.Robot);
                 Console.WriteLine(r.solverString);
                 res.AddRange(r.moves);
+                res.Add(Move.Forward);
 
                 warehouse.matrix[a, b] = null; 
             }

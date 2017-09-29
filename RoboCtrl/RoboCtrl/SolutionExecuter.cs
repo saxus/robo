@@ -58,7 +58,7 @@ namespace RoboCtrl
                     // onsole.SetCursorPosition(0, 0);
                     Console.Clear();
                     wareHouse.Dump();
-                    Thread.Sleep(100);
+                    Thread.Sleep(1);
                 }
                 else
                 {

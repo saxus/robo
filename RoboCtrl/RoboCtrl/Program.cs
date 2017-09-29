@@ -19,28 +19,20 @@ namespace RoboCtrl
 
             options.Parse(args);
 
-            connectionString = "http://warehouse.nexogen.io/wh/d26a8954-feb9-4e75-aebd-a1caf20a807c";
+            //connectionString = "http://warehouse.nexogen.io/wh/d26a8954-feb9-4e75-aebd-a1caf20a807c";
+
+            connectionString = "http://warehouse.nexogen.io/wh/14c7af82-cd34-4d53-b61f-ffc8c8c30ae5";
 
             SolutionExecuter executer = new SolutionExecuter(connectionString);
 
-            // executer.ResetProblem().Wait();
+            executer.ResetProblem().Wait();
 
             var initialWarehouse = executer.GetInitialState().Result;
 
-            var whs = new WarehouseState(initialWarehouse.json);
-            whs.matrix = initialWarehouse.matrix;
-            whs.Robot = initialWarehouse.Robot;
-            whs.h = initialWarehouse.h;
-            whs.w = initialWarehouse.w;
+            var calculator = new Calculator();
+            var solution = calculator.Solve(initialWarehouse);
 
-            whs.Dump();
-
-            Console.ReadLine();
-
-            // var calculator = new Calculator();
-            // var solution = calculator.Solve(initialWarehouse);
-            //             
-            // executer.ProcessMovements(solution).Wait();                        
+            executer.ProcessMovements(solution).Wait();
         }
     }
 }

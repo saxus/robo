@@ -35,16 +35,17 @@ namespace RoboCtrl.JavaSolver
                         if (heading == 0 || heading == 360)
                         {
                             movements.Add(Move.Forward);
+
                         }
 
-                        if (heading == 90)
+                        else if (heading == 90)
                         {
                             movements.Add(Move.Left);
                             movements.Add(Move.Forward);
                             heading = Left(heading);
                         }
 
-                        if (heading == 180)
+                        else if (heading == 180)
                         {
                             movements.Add(Move.Left);
                             movements.Add(Move.Left);
@@ -53,7 +54,7 @@ namespace RoboCtrl.JavaSolver
                             heading = Left(heading);
                         }
 
-                        if (heading == 270)
+                        else if (heading == 270)
                         {
                             movements.Add(Move.Right);
                             movements.Add(Move.Forward);
@@ -70,19 +71,19 @@ namespace RoboCtrl.JavaSolver
                             heading = Left(heading);
                         }
 
-                        if (heading == 90)
+                        else if (heading == 90)
                         {
                             movements.Add(Move.Right);
                             movements.Add(Move.Forward);
                             heading = Right(heading);
                         }
 
-                        if (heading == 180)
+                        else if (heading == 180)
                         {
                             movements.Add(Move.Forward);
                         }
 
-                        if (heading == 270)
+                        else if (heading == 270)
                         {
                             movements.Add(Move.Left);
                             movements.Add(Move.Forward);
@@ -97,7 +98,7 @@ namespace RoboCtrl.JavaSolver
                             heading = Left(heading);
                         }
 
-                        if (heading == 90)
+                        else if (heading == 90)
                         {
                             movements.Add(Move.Left);
                             movements.Add(Move.Left);
@@ -106,14 +107,14 @@ namespace RoboCtrl.JavaSolver
                             heading = Left(heading);
                         }
 
-                        if (heading == 180)
+                        else if (heading == 180)
                         {
                             movements.Add(Move.Right);
                             movements.Add(Move.Forward);
                             heading = Right(heading);
                         }
 
-                        if (heading == 270)
+                        else if (heading == 270)
                         {
                             movements.Add(Move.Forward);
                         }
@@ -126,21 +127,19 @@ namespace RoboCtrl.JavaSolver
                             heading = Right(heading);
                         }
 
-                        if (heading == 90)
+                        else if (heading == 90)
                         {
                             movements.Add(Move.Forward);
                         }
 
-                        if (heading == 180)
+                        else if (heading == 180)
                         {
-                            movements.Add(Move.Left);
                             movements.Add(Move.Left);
                             movements.Add(Move.Forward);
                             heading = Left(heading);
-                            heading = Left(heading);
                         }
 
-                        if (heading == 270)
+                        else if (heading == 270)
                         {
                             movements.Add(Move.Right);
                             movements.Add(Move.Right);
@@ -152,11 +151,12 @@ namespace RoboCtrl.JavaSolver
                 }
             }
 
-            return new SolverResult()
+            var resu = new SolverResult()
             {
                 moves = movements,
                 solverString = res,
             };
+            return resu;
         }
 
         private int Left(int heading)
@@ -176,7 +176,7 @@ namespace RoboCtrl.JavaSolver
             switch (heading)
             {
                 case 0: return 90;
-                case 90 : return 180;
+                case 90: return 180;
                 case 180: return 270;
                 case 270: return 0;
                 default: throw new Exception();
