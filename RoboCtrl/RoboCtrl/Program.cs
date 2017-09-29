@@ -74,7 +74,7 @@ namespace RoboCtrl
 ####################################################";
 
             var s = new JavaSolver.JavaSolver();
-            var res = s.Solve(f, null);
+            var res = s.Solve(f, new Robot());
 
             foreach (var r in res)
                 Console.WriteLine(r);
