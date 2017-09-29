@@ -21,29 +21,29 @@ namespace RoboCtrl
         {
             foreach (var movement in movements)
             {
-                Thread.Sleep(500);
-
                 HttpResponseMessage result = null;
                 switch (movement)
                 {
                     case Move.Forward:
-                        result = await client.PostAsync("/robot/forward", null);
+                        result = await client.PostAsync(client.BaseAddress + "/robot/forward", null);
                         break;
                     case Move.Left:
-                        result = await client.PostAsync("/robot/turn/left", null);
+                        result = await client.PostAsync(client.BaseAddress + "/robot/turn/left", null);
                         break;
                     case Move.Right:
-                        result = await client.PostAsync("/robot/turn/right", null);
+                        result = await client.PostAsync(client.BaseAddress + "/robot/turn/right", null);
                         break;
                 }
 
                 if (result != null)
                 {
                     var resultContent = await result.Content.ReadAsStringAsync();
-                    var json = JsonConvert.DeserializeObject<WarehouseJson>(resultContent);
+                    WarehouseJson json = JsonConvert.DeserializeObject<WarehouseJson>(resultContent);
 
-                    Warehouse wareHouse = new Warehouse(json);
+                    WarehouseState wareHouse = new WarehouseState(json.WarehouseState);
+                    Console.Clear();
                     wareHouse.Dump();
+                    Thread.Sleep(1000);
                 }
                 else
                 {
