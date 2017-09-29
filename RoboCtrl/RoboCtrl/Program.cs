@@ -18,6 +18,7 @@ namespace RoboCtrl
             options.Parse(args);
 
             SolutionExecuter executer = new SolutionExecuter(connectionString);
+            executer.ResetProblem().Wait();
             var initialWarehouse = executer.GetInitialState();            
             List<Move> moves = new List<Move>{Move.Right, Move.Forward, Move.Forward, Move.Forward, Move.Forward};
             executer.ProcessMovements(moves).Wait();

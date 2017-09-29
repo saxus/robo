@@ -17,6 +17,11 @@ namespace RoboCtrl
             client = new HttpClient { BaseAddress = new Uri(url) };
         }
 
+        public async Task ResetProblem()
+        {
+            await client.PostAsync(client.BaseAddress + "/reset", null);
+        }
+
         public async Task<Warehouse> GetInitialState()
         {
             var result = await client.GetAsync(client.BaseAddress);
