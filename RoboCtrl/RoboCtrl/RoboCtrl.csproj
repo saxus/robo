@@ -53,6 +53,7 @@
     <Compile Include="Algorithms\Hit.cs" />
     <Compile Include="Algorithms\PickCrate.cs" />
     <Compile Include="Algorithms\RoadTo.cs" />
+    <Compile Include="JavaSolver\JavaSolver.cs" />
     <Compile Include="Model\Warehouse.cs" />
     <Compile Include="SolutionExecuter.cs" />
     <Compile Include="Model\Move.cs" />
