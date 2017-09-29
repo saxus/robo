@@ -9,9 +9,19 @@ namespace RoboCtrl.JavaSolver
 {
     class JavaSolver
     {
-        public IEnumerable<Move> Solve(string map)
+        public IEnumerable<Move> Solve(string map, Robot robot)
         {
+            var res = RunSolver(map);
+
+            // TODO: Conversion
+
             return new Move[0];
+        }
+
+
+        private string RunSolver(string map)
+        {
+            return "";
         }
     }
 }
