@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Algorithms\Calculator.cs" />
     <Compile Include="Algorithms\RouadTo.cs" />
+    <Compile Include="SolutionExecuter.cs" />
     <Compile Include="Model\Move.cs" />
     <Compile Include="Model\Places.cs" />
     <Compile Include="Model\Road.cs" />
