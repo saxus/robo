@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using Mono.Options;
-using Newtonsoft.Json;
 using RoboCtrl.Model;
 
 namespace RoboCtrl
 {
     class Program
     {
-        static WarehouseState warehouse;
         private static string connectionString;
 
         static void Main(string[] args)

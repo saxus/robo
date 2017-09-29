@@ -31,8 +31,6 @@ namespace RoboCtrl.Model
 
     class Robot: Place
     {
-        public Location Location { get; set; }
-
         public Guid Id { get; set; }
 
         public int Heading { get; set; }

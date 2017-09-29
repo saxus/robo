@@ -8,13 +8,22 @@ using RoboCtrl.Model;
 
 namespace RoboCtrl
 {
-    public class SolutionExecuter
+    class SolutionExecuter
     {
         private readonly HttpClient client;
 
         public SolutionExecuter(string url)
         {
             client = new HttpClient { BaseAddress = new Uri(url) };
+        }
+
+        public async Task<Warehouse> GetInitialState()
+        {
+            var result = await client.GetAsync(client.BaseAddress);
+            var resultContent = await result.Content.ReadAsStringAsync();
+            WarehouseStateJson json = JsonConvert.DeserializeObject<WarehouseStateJson>(resultContent);
+            Warehouse warehouse = new Warehouse(json);
+            return warehouse;
         }
 
         public async Task ProcessMovements(IEnumerable<Move> movements)
