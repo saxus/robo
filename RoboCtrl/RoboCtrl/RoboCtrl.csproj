@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Model\Places.cs" />
     <Compile Include="Model\Warehouse.cs" />
+    <Compile Include="Model\WarehouseJson.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -14,20 +14,22 @@ namespace RoboCtrl.Model
 
     class Place
     {
-       public Location Location { get; set; }
+        public Location Location { get; set; }
     }
 
-    class Obstacle: Place
+    class Obstacle : Place
     {
-
+        public override string ToString() => "#";
     }
 
-    class Crate: Place
+    class Crate : Place
     {
         public int Value { get; set; }
+
+        public override string ToString() => "C";
     }
 
-    class Robot
+    class Robot: Place
     {
         public Location Location { get; set; }
 
@@ -41,10 +43,24 @@ namespace RoboCtrl.Model
         public int TurningTime { get; set; }
         public int MovingTime { get; set; }
 
+        public override string ToString()
+        {
+            switch (Heading)
+            {
+                case 0: return "^";
+                case 1: return ">";
+                case 2: return "v";
+                case 3: return "<";
+                default: throw new Exception("heading szar");
+            }
+        }
+
     }
 
-    class Exit: Place
+    class Exit : Place
     {
         public Guid RobotId { get; set; }
+        public override string ToString() => "E";
+
     }
 }
