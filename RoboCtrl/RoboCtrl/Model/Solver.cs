@@ -8,9 +8,9 @@ namespace RoboCtrl.Model
 {
     class Solver
     {
-        public IEnumerable<Moves> Solve(string map)
+        public IEnumerable<Move> Solve(string map)
         {
-            return new Moves[0];
+            return new Move[0];
         }
     }
 }
