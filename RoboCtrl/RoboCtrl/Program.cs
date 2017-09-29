@@ -32,12 +32,13 @@ namespace RoboCtrl
 
             Console.WriteLine($"Warehouse ID: {warehouseId}");
 
-            connectionString = "http://warehouse.nexogen.io/wh/d26a8954-feb9-4e75-aebd-a1caf20a807c";
+            // connectionString = "http://warehouse.nexogen.io/wh/d26a8954-feb9-4e75-aebd-a1caf20a807c";
+            connectionString = "http://warehouse.nexogen.io/wh/a9c11152-2b17-4c67-98cb-cd5838a4f21b";
 
 
             // connectionString = "http://warehouse.nexogen.io/wh/";
-             
-             SolutionExecuter executer = new SolutionExecuter(connectionString);
+
+            SolutionExecuter executer = new SolutionExecuter(connectionString);
              
             // executer.ResetProblem().Wait();
             // 
