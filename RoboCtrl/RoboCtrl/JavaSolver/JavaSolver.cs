@@ -198,10 +198,38 @@ namespace RoboCtrl.JavaSolver
                 UseShellExecute = false
             };
 
-            var p = Process.Start(psi);
-            string output = p.StandardOutput.ReadToEnd();
-            var l = output.Split('\n')[3].Trim();
-            return l.Replace(" ", "");
+            var java = Task.Run(() =>
+            {
+
+                p = Process.Start(psi);
+                string output = p.StandardOutput.ReadToEnd();
+                var l = output.Split('\n');
+
+                if (l.Length >= 4)
+                {
+                    return (l[3].Trim()).Replace(" ", "");
+                }
+                else
+                {
+                    return null;
+                }
+            });
+            var timeout = Task.Delay(1 * 1000);
+
+            var res = Task.WaitAny(java, timeout);
+
+            if (res == 0)
+            {
+                return java.Result;
+            }
+            else
+            {
+                Console.WriteLine("Timeout");
+
+                p?.Kill();
+
+                return null;
+            }
         }
     }
 
