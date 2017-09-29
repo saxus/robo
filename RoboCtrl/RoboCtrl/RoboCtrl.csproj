@@ -45,8 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Moves.cs" />
+    <Compile Include="Algorithms\Calculator.cs" />
+    <Compile Include="Algorithms\RouadTo.cs" />
+    <Compile Include="Model\Move.cs" />
     <Compile Include="Model\Places.cs" />
+    <Compile Include="Model\Road.cs" />
     <Compile Include="Model\Warehouse.cs" />
     <Compile Include="Model\WarehouseJson.cs" />
     <Compile Include="Program.cs" />

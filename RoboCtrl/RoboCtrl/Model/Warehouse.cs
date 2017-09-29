@@ -12,6 +12,7 @@ namespace RoboCtrl.Model
         public WarehouseJson json;
         public int w;
         public int h;
+        public Robot Robot { get; set; }
 
 
         public Warehouse(WarehouseJson json)
