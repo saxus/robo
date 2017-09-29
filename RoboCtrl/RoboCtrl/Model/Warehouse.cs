@@ -9,7 +9,8 @@ namespace RoboCtrl.Model
         public int w;
         public int h;
         public Robot Robot { get; set; }
-
+        
+        
         public Warehouse(WarehouseStateJson json)
         {
             this.json = json;
@@ -80,6 +81,58 @@ namespace RoboCtrl.Model
             Console.SetCursorPosition(1 + json.Robot.Location.Y, 1 + json.Robot.Location.X);
 
 
+        }
+
+
+        public string GenerateString()
+        {
+            var res = "";
+
+            for (int x = 0; x < w+1; x++)
+            {
+                if (json.Exit.Location.X == 0 && json.Exit.Location.Y == x)
+                {
+                    res += ".";
+                }
+                else
+                {
+                    res += "#";
+                }
+            }
+
+            for (int x = 0; x < w+1; x++)
+            {
+
+                if (json.Exit.Location.X == x && json.Exit.Location.Y == 0)
+                {
+                    res += ".";
+                }
+                else
+                {
+                    res += "#";
+                }
+
+                for (int y = 0; y < h+1; y++)
+                {
+                    var v = matrix[x, y]?.ToString();
+                    if (v == null)
+                    {
+                        res += " ";
+                    }
+                    else
+                    {
+                        res += v;
+                    }
+                }
+                res += "#/n";
+            }
+
+            for (int x = 0; x < w + 1; x++)
+            {
+                res += "#";                
+            }
+
+            return res;
         }
     }
 }
