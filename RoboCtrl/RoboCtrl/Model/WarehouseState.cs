@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace RoboCtrl.Model
 {
-    class Warehouse
+    class WarehouseState
     {
         public Place[,] matrix;
         public WarehouseStateJson json;
@@ -10,7 +14,8 @@ namespace RoboCtrl.Model
         public int h;
         public Robot Robot { get; set; }
 
-        public Warehouse(WarehouseStateJson json)
+
+        public WarehouseState(WarehouseStateJson json)
         {
             this.json = json;
 
@@ -20,14 +25,7 @@ namespace RoboCtrl.Model
 
             foreach (var it in json.Obstacles)
             {
-                if (it.Location.X > w - 1 || it.Location.Y > h - 1)
-                {
-
-                }
-                else
-                {
-                    matrix[it.Location.X, it.Location.Y] = it;
-                }
+                matrix[it.Location.X, it.Location.Y] = it;
             }
 
             foreach (var it in json.Crates)
@@ -51,13 +49,13 @@ namespace RoboCtrl.Model
             Console.WriteLine("Robot step completed:" + Robot.StepCompleted);
             Console.WriteLine("Robot turn completed:" + Robot.TurnCompleted);
 
-            Console.WriteLine("#" + new string('#', w) + "#");
+            Console.WriteLine("+" + new string('-', w) + "+");
 
 
             for (int x = 0; x < w; x++)
             {
 
-                Console.Write("#");
+                Console.Write("|");
 
                 for (int y = 0; y < h; y++)
                 {
@@ -65,7 +63,7 @@ namespace RoboCtrl.Model
                     if (v == null)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Console.Write(" ");
+                        Console.Write(".");
                         Console.ResetColor();
                     }
                     else
@@ -73,9 +71,9 @@ namespace RoboCtrl.Model
                         Console.Write(v);
                     }
                 }
-                Console.WriteLine("#");
+                Console.WriteLine("|");
             }
-            Console.WriteLine("#" + new string('#', w) + "#");
+            Console.WriteLine("+" + new string('-', w) + "+");
 
             Console.SetCursorPosition(1 + json.Robot.Location.Y, 1 + json.Robot.Location.X);
 

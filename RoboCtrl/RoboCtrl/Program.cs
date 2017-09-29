@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Mono.Options;
 using Newtonsoft.Json;
 using RoboCtrl.Model;
 
@@ -11,19 +8,30 @@ namespace RoboCtrl
 {
     class Program
     {
-        static Warehouse warehouse;
+        static WarehouseState warehouse;
+        private static string connectionString;
 
         static void Main(string[] args)
         {
-            var str = File.ReadAllText("wh2.json");
-            var data = JsonConvert.DeserializeObject<WarehouseJson>(str);
+            var options = new OptionSet
+            {
+                { "conn=", "Connection string", n => { connectionString = n.ToString(); } }
+            };
 
-            warehouse = new Warehouse(data);
+            options.Parse(args);
 
 
+            //var str = File.ReadAllText("wh.json");
+            //var data = JsonConvert.DeserializeObject<WarehouseJson>(str);
 
-            warehouse.Dump();
+            //warehouse = new Warehouse(data);
+
+            //warehouse.Dump();
             // TODO: live beolvasás
+            // Solution betöltés:
+            SolutionExecuter executer = new SolutionExecuter(connectionString);
+            List<Move> moves = new List<Move>{Move.Right, Move.Forward, Move.Forward, Move.Forward, Move.Forward};
+            executer.ProcessMovements(moves).Wait();
         }
     }
 }

@@ -14,6 +14,11 @@ namespace RoboCtrl.Model
 
     class WarehouseJson
     {
+        public WarehouseStateJson WarehouseState { get; set; }
+    }
+
+    class WarehouseStateJson
+    {
         public Size Size { get; set; }        
         public List<Crate> Crates { get; set; }
         public Robot Robot { get; set; }
