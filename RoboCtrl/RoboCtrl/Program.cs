@@ -22,6 +22,9 @@ namespace RoboCtrl
             connectionString = "http://warehouse.nexogen.io/wh/d26a8954-feb9-4e75-aebd-a1caf20a807c";
 
             SolutionExecuter executer = new SolutionExecuter(connectionString);
+
+            executer.Reset().Wait();
+
             var initialWarehouse = executer.GetInitialState().Result;
 
             var calculator = new Calculator();
